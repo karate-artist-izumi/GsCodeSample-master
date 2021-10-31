@@ -29,13 +29,13 @@
         <div id="box2">
             
             <h4>リスト</h4>
+            <tr>
+                <td>key</td>
+                <td>memo</td>
+                <td>変更</td>
+                <td>削除</td>
+            </tr>
             <table id="list">
-                <tr>
-                    <td>key</td>
-                    <td>memo</td>
-                    <td>変更</td>
-                    <td>削除</td>
-                </tr>
             </table>
         </div>
         
@@ -44,7 +44,7 @@
 
     <p>カウンター：<span id="count">0</span></p>
     <input type="button" value="カウント" onClick="count();">
-    <div id="border" style="background:#000000;height:0px;"></div>
+    <div id="border"></div>
 
 
 <script>
@@ -81,7 +81,7 @@ for(let i=0; i<localStorage.length; i++){
     const key = localStorage.key(i);
     const memo = localStorage.getItem(key);
 
-    const h = '<tr><td>'+key+'</td><td>'+memo+'</td><td>'+'<button id="change">変更</button>'+'</td><td>'+'<button id="del">削除</button>'+'</td></tr>'
+    const h = '<tr><td>'+key+'</td><td>'+memo+'</td><td><button id="change">変更</button></td><td><button id="del">削除</button></td></tr>'
     $("#list").prepend( h );
 
     //changeボタン
