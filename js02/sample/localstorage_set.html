@@ -2,19 +2,100 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8" />
+<link rel="stylesheet" href="./css/style.css">
 <script src="js/jquery-2.1.3.min.js"></script>
 <title>localstorage</title>
 </head>
 
 <body>
-<div id="view"></div>
+<!-- <div id="view"></div> -->
+
+
+    <main>
+        <div id="box1">
+
+            <h4>key</h4>
+            <input type="text" id="key">
+            
+            <h4>memo</h4>
+            <textarea name="" id="memo" cols="30" rows="10"></textarea>
+            
+            <ul>
+                <li id="save"><button>SAVE</button></li>
+                <li id="clear"><button>ALL CLEAR</button></li>
+            </ul>
+        </div>
+            
+        <div id="box2">
+            
+            <h4>リスト</h4>
+            <table id="list">
+                <tr>
+                    <td>key</td>
+                    <td>memo</td>
+                    <td>変更</td>
+                    <td>削除</td>
+                </tr>
+            </table>
+        </div>
+        
+    </main>
+
+
+    <p>カウンター：<span id="count">0</span></p>
+    <input type="button" value="カウント" onClick="count();">
+    <div id="border" style="background:#000000;height:0px;"></div>
+
+
 <script>
-// localStorage.setItem("m1","aaaa");
-// localStorage.setItem("m2","bbbb");
-// localStorage.setItem("m3","cccc");
-// localStorage.setItem("m4","dddd");
 
+function count(){
+    let c = $("#count").html();
+        c = Number(c);
+        // let c = Number(c);
+        c += 1;
+    $("#count").html(c);
+    $("#border").html('<div style="background:#000000;height:'+c+'0px;"></div>');
+}
 
+//save
+$("#save").on("click",function(){
+    const key = $("#key").val();
+    const memo = $("#memo").val();
+    localStorage.setItem(key,memo);
+
+    const h ='<tr><td>'+key+'</td><td>'+memo+'</td><td>'+'<button id="change">変更</button>'+'</td><td>'+'<button id="del">削除</button>'+'</td></tr>'
+    $("#list").prepend( h );
+
+    location.reload()
+});
+
+//ALL clear
+$("#clear").on("click",function(){
+    localStorage.clear();
+    $("#list").empty();
+});
+
+//読み込み
+for(let i=0; i<localStorage.length; i++){
+    const key = localStorage.key(i);
+    const memo = localStorage.getItem(key);
+
+    const h = '<tr><td>'+key+'</td><td>'+memo+'</td><td>'+'<button id="change">変更</button>'+'</td><td>'+'<button id="del">削除</button>'+'</td></tr>'
+    $("#list").prepend( h );
+
+    //changeボタン
+    $("#change").on("click",function(){
+        $("#key").val( key );
+        $("#memo").val( memo );
+    });
+
+    //delボタン
+    $("#del").on("click",function(){
+        localStorage.removeItem(key);
+        location.reload();
+    });
+}
 
 
 </script>
