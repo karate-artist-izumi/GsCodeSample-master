@@ -14,16 +14,49 @@
 <div id="view"></div>
 <!-- ここに日時を表示させる -->
 
+<select name="" id="year"></select>
+<select name="" id="month"></select>
+<select name="" id="date"></select>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
+
+let y = "";
+for(let i=1950; i<=2025; i++){
+        y += '<option>'+i+'</option>';
+}
+$("#year").html( y );
+
+let m ="";
+for(let i=1; i<=12; i++){
+        m += '<option>'+i+'</option>'
+}
+$("#month").html( m );
+
 //記述練習
-const d = ["日","月","火","水","木","金","土"];
+// const d = ["日","月","火","水","木","金","土"];
+// const a = [1,2,3,4,5];
 
+// console.log(a[1]);
 
+// const l = a.length;
+// console.log(l);
 
+// a.push(6);
+// a.unshift(0);
+// console.log(a);
 
+// for(let i=0; i<10; i+=2){
+//     console.log(i+"回目");
+// }
 
+// const a1 = ["木","火","土","金","水"];
+
+// for(let a2=0; a2<a1.length; a2++){
+//     console.log(a1[a2]);
+
+// }
 
 
 
