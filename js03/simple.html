@@ -7,16 +7,14 @@
 <body>
 
 <!-- コンテンツ表示画面 -->
-
 <div>
-    <div> 名前：<input type="text" id=""> </div>
+    <div> 名前：<input type="text" id="uname"> </div>
     <div>
-        <textarea id="" cols="30" rows="10"></textarea>
-        <button id="">送信</button>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send">送信</button>
     </div>
-    <div id="output"></div>
+    <div id="output" style="overflow: auto;height: 300px;"></div>
 </div>
-<!--/ コンテンツ表示画面 -->
 
 
 
@@ -26,15 +24,72 @@
 
 
 <!--** 以下Firebase **-->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getFirestore, collection, doc, Timestamp, addDoc, deleteDoc, onSnapshot, query, orderBy } 
+        from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";      
+  
+    // Your w
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyAW8cbl2kUeaOK6hXaBMhp6ADaKmNusMBs",
+        authDomain: "testdemo-49470.firebaseapp.com",
+        projectId: "testdemo-49470",
+        storageBucket: "testdemo-49470.appspot.com",
+        messagingSenderId: "917372689869",
+        appId: "1:917372689869:web:cbe5a992aeb8050d2df884"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        //Firestoreを使う
+        // const db = getFirestore(app);
+        // const ref = collection(db, "chat");
+
+        const ref = firebase.database().ref();
+
+        
+        //送信処理
+        $("#send").on("click", function () {
+            const uname = $("#uname").val();
+            const text = $("#text").val();
+            const msg = {
+                uname: uname,
+                text: text
+            };
+            ref.push(msg); //Firebase関数
+        });
+
+        $("#text").on("click", function (e) {
+            console.log(e);
+            if (e.keyCode == 13) {
+                const uname = $("#uname").val();
+                const text = $("#text").val();
+                const msg = {
+                    uname: uname,
+                    text: text
+                };
+                ref.push(msg); //Firebase関数
+            }
+        });
+
+        //受信処理
+        ref.on("child_added", function (data) {
+            const v = data.val();
+            const k = data.key;
+            const h = '<p>' + v.uname + '<br>' + v.text + '</p>';
+            $("#output").append(h);
+            //スクロール
+            const element = document.querySelector("#output");
+            const bottom = element.scrollHeight - element.clientHeight;
+            element.scroll(0, bottom);
+        });
 
 
 
-
-
-
-
-
-
+    </script>
 
 
 
