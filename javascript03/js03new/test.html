@@ -9,12 +9,13 @@
 <!-- コンテンツ表示画面 -->
 
 <div>
-    <div> 名前：<input type="text" id=""> </div>
+    <div> 名前：<input type="text" id="uname"> </div>
     <div>
-        <textarea id="" cols="30" rows="10"></textarea>
-        <button id="">送信</button>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send">memoに送信</button>
+        <button id="send01">testに送信</button>
     </div>
-    <div id="output"></div>
+    <div id="output" style="overflow: auto; height: 300px;"></div>
 </div>
 <!--/ コンテンツ表示画面 -->
 
@@ -26,7 +27,78 @@
 
 
 <!--** 以下Firebase **-->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved } 
+from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyAW8cbl2kUeaOK6hXaBMhp6ADaKmNusMBs",
+        authDomain: "testdemo-49470.firebaseapp.com",
+        databaseURL: "https://testdemo-49470-default-rtdb.firebaseio.com",
+        projectId: "testdemo-49470",
+        storageBucket: "testdemo-49470.appspot.com",
+        messagingSenderId: "917372689869",
+        appId: "1:917372689869:web:cbe5a992aeb8050d2df884"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dbRef = ref(db,"memo");
+        const dbtest = ref(db,"test");
 
+        //登録送信
+        $("#send").on("click",function(){
+            const msg = {
+                uname : $("#uname").val(),
+                text : $("#text").val()
+            }
+            const ukey = push(dbRef);
+            set(ukey,msg);
+        });
+
+        $("#send01").on("click",function(){
+            const msg = {
+                uname : $("#uname").val(),
+                text : $("#text").val()
+            }
+            const ukey = push(dbtest);
+            set(ukey,msg);
+        });
+
+
+        //表示
+        onChildAdded(dbRef,function(data){
+            const msg = data.val();
+            const key = data.key;
+            let h = '<p>';
+                h += msg.uname;
+                h += '<br>';
+                h += msg.text;
+                h +='</p>';
+            $("#output").prepend( h );
+        });
+
+        onChildAdded(dbtest,function(data){
+            const msg = data.val();
+            const key = data.key;
+            let ht = '<p>';
+                ht += msg.uname;
+                ht += '<br>';
+                ht += msg.text;
+                ht +='</p>';
+            $("#output").prepend( ht );
+        });
+
+
+
+
+    </script>
 
 
 

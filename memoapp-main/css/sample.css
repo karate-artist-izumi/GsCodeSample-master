@@ -1,0 +1,172 @@
+
+@font-face
+{
+font-family: PixelMplus12_Regular;
+src: url('https://cdn.leafscape.be/PixelMplus/PixelMplus12-Regular_web.woff2')
+     format("woff2");
+}
+@font-face
+{
+font-family: PixelMplus12_Bold;
+src: url('https://cdn.leafscape.be/PixelMplus/PixelMplus12-Bold_web.woff2')
+     format("woff2");
+}
+
+body{
+    font-family: 'PixelMplus12_Regular';
+    width: 800px;
+    margin: 0 auto;
+    background-color: black;
+}
+
+input[type="text"],textarea,button{
+    font-family: 'PixelMplus12_Regular';
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="text"]:focus,
+textarea:focus{
+    outline: none;
+}
+
+header{
+    background-color: #fff;
+    text-align: center;
+}
+h1{
+    font-size: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+    margin: 13px 0;
+}
+main{
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-bottom: 36px;
+}
+footer{
+    background-color: #000;
+    border-top: 1px solid #fff;
+    text-align: center;
+    color: #fff;
+    padding-top: 12px;
+    font-size: 13px;
+    margin-top: 6px;
+    padding-top: 16px;
+}
+
+p{
+    font-size:200%;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height:200px;
+}
+ul{
+    padding: 0;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:96%;
+    font-size: 80%;
+    margin: 0 3%;
+    text-align: center;
+}
+li{
+    list-style-type: none;
+    background-color: #000;
+    color: white;
+    display: inline-block;
+    border: 2px solid #fff;
+    cursor: pointer;
+    width: 48%;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 3px;
+}
+li:hover{
+    /* background: #0d7dfd;
+    color:#fff; */
+}
+textarea{
+    height: 90px;
+    width: 99.8%;
+    margin: 0 auto;
+    font-size: 80%;
+    margin-bottom: 8px;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 5px;
+}
+#key{
+    width: 99.8%;
+    margin: 0 auto;
+    font-size: 80%;
+    margin-bottom: 8px;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 5px;
+}
+table{
+    width:100%;
+    
+}
+
+table#list {
+    margin-bottom: 48px;
+}
+th{
+    width:30%;
+    font-size:24px;
+    background-color:#d0e7fc;
+}
+tr{
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:first-of-type{
+    border-top: 1px solid #ddd;
+}
+
+td{
+    font-size: 16px;
+    background-color: rgb(241, 239, 239);
+    width: 27%;
+    padding: 15px 0px 15px 10px;
+    background-color: #000;
+    color: #fff;
+}
+
+td.syosai_memo {
+    position: relative;
+    width: 40%;
+}
+
+.btn_memo {
+    position: absolute;
+    top: 13px;
+    right: 8px;
+}
+
+button.button_del {
+    margin-right: 8px;
+}
+
+li#save{
+    margin-right: 2%;
+}
+
+li#clear{
+    margin-left: 2%;
+}
+
+h2{
+    color: #fff;
+    margin: 12px 0;
+}
