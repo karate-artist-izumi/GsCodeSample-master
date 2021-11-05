@@ -29,11 +29,19 @@ $("#save").on("click",function(){
     const memo = $("#memo").val();
     localStorage.setItem(key,memo);
 
+    // let h ='<tr>';
+    //     h += '<td>'+key+'</td>';
+    //     h += '<td>'+memo+'</td>';
+    //     h += '<td>'+'<button id="change">変更</button>'+'</td>';
+    //     h += '<td>'+'<button id="del">削除</button>'+'</td>';
+    //     h += '</tr>';
+    // $("#list").append( h );
+
     let h ='<tr>';
         h += '<td>'+key+'</td>';
         h += '<td>'+memo+'</td>';
-        h += '<td>'+'<button id="change">変更</button>'+'</td>';
-        h += '<td>'+'<button id="del">削除</button>'+'</td>';
+        h += '<td>'+'<button id="change" data-id="'+key+'">変更</button>'+'</td>';
+        h += '<td>'+'<button id="del" data-id="'+key+'">削除</button>'+'</td>';
         h += '</tr>';
     $("#list").append( h );
 
@@ -54,8 +62,8 @@ for(let i=0; i<localStorage.length; i++){
     let h ='<tr>';
         h += '<td>'+key+'</td>';
         h += '<td>'+memo+'</td>';
-        h += '<td>'+'<button id="change">変更</button>'+'</td>';
-        h += '<td>'+'<button id="del">削除</button>'+'</td>';
+        h += '<td>'+'<button id="change" data-id="'+key+'">変更</button>'+'</td>';
+        h += '<td>'+'<button id="del" data-id="'+key+'">削除</button>'+'</td>';
         h += '</tr>';
     $("#list").prepend( h );
 
