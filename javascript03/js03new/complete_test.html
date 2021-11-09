@@ -74,9 +74,26 @@ onChildAdded(dbRef, function(data){
         h += msg.uname;
         h += '<br>';
         h += msg.text;
+        // h += '<br>';
+        // h += '<div id="del"><button id="'+key+'">削除</button></div>';
         h += '</p>';
         $("#output").append(h); //#outputの最後に追加
-});
+        
+
+
+        $("#del").on("click", function () {                  
+            onChildRemoved(dbRef, function (data) { 
+               $(key).remove();           // 
+            });
+
+        });
+
+
+        
+    });
+
+
+
 </script>
 </body>
 </html>

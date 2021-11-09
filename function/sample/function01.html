@@ -7,8 +7,29 @@
 <body>
 <h1>function01: 関数を作ってみよう</h1>
 
+<div id="echo"><button>echo</button></div>
 
+<div class="btn-area">
+    <button type="button" class="add-btn">ボタン1</button>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
+
+// $(".add-btn").on("click", function () {
+//     var num = Number($(this).text().replace("ボタン", ""));
+//     var html = '<button type="button" class="add-btn">ボタン' + (num + 1) + '</button>';
+//     $(".btn-area").append(html);
+// });
+
+$(document).on("click", ".add-btn", function () {
+    var num = Number($(this).text().replace("ボタン", ""));
+    var html = '<button type="button" class="add-btn">ボタン' + (num + 1) + '</button>';
+    $(".btn-area").append(html);
+});
+
 
 //1.関数定義(ページを読み込まれても自動実行しない)
 
@@ -19,7 +40,26 @@ console.log( str );
 //2.関数実行:関数名を呼んで実行開始！
 
 
+function add( a , b ){
+    const n = a + b;
+    return n;
+}
+const a = add( 10 , 20 );
+console.log(a);
 
+function kake( a , b ){
+    const n = a * b;
+    return n;
+}
+const b = kake( 10 , 5 );
+console.log(b);
+
+const c = a + b;
+console.log(c);
+
+$("#echo").on("click", function () {
+        $("h1").html(c);
+    });
 
 </script>
 </body>

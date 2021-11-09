@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>チャットアプリだヨ！全員集合。</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="body">
+    <!-- コンテンツ表示画面 -->
+    <!-- スマホ枠を作成 -->
+    <span class="sumaho-waku"><span class="sumaho-moji">
+      
+            <div>
+                <div id="output"></div>
+                <!-- <div> 名前：<input type="text" id="uname"></div> -->
+                <br>
+                <div class="">お名前：
+                    <select id="uname">
+                            <option value="きつね">きつね</option>
+                            <option value="くま">くま</option>
+                            <option value="ねこ">ねこ</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <textarea id="text" cols="60" rows="5"></textarea>
+                    <button id="send">送信</button>
+                    <button id="all_delete">全削除</button>
+                    <button id="delete">削除</button>
+                </div>
+            </div>
+
+    </span></span>
+    <!--/ コンテンツ表示画面 -->
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- JQuery -->
+
+    <!--** 以下Firebase **-->
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js";   // firebaseにアクセスを認証してもらう
+        import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }                // firebaseの関数をひっぱってくる
+        from "https://www.gstatic.com/firebasejs/9.3.0/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAW8cbl2kUeaOK6hXaBMhp6ADaKmNusMBs",
+            authDomain: "testdemo-49470.firebaseapp.com",
+            projectId: "testdemo-49470",
+            storageBucket: "testdemo-49470.appspot.com",
+            messagingSenderId: "917372689869",
+            appId: "1:917372689869:web:cbe5a992aeb8050d2df884"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);  //firebaseにアクセス
+        const db = getDatabase(app);                //firebaseの情報全体を引っ張ってくる
+        const dbRef = ref(db, "chat");              //変数dbRefに、変数db(Firebaseから引っ張ってきた全データ）内のchat項目の情報をデータを入れる。
+
+
+        // メッセージ送信機能
+        $("#send").on("click", function () {        // ID:sendをクリックしたら動作
+            const today = new Date();               // インスタンス化された時点での日時情報を取得し、引数todayにセット
+            const msg = {                           // 変数msgを定義
+                uname: $("#uname").val(),           // unameへID：unameに入力された情報を入れる。valはユーザーが入力した情報を扱うときの関数。
+                text: $("#text").val(),             // textへID：textに入力された情報を入れる
+                date: (today.getMonth() + 1 + "月" + today.getDate() + "日：" + today.getHours() + "時" + today.getMinutes() + "分"),
+                                                    // dateへ変数todayがもつ日時情報から指定した任意の情報をひっぱってくる。月の情報は0から始まるので+1をする
+            }
+            const newPostRef = push(dbRef);         // 変数newPostRefに、変数dbRefからの情報を一回プッシュする（一回ごとなのでユニークキー生成と同義）
+            console.log(newPostRef);
+            set(newPostRef, msg);                   // 変数newPostRefに変数msgの情報を持たせる（＝firebaseにmsgのデータを送る）
+                                                    // newPostRefではなくdbRefを指定した場合、pushのアクションが介在しないので、ユニークキーが生成されずにchatのところへデータを追加していく（上書きする）形となる。
+        });
+
+        
+        
+        // キーが押されたら単体で動作
+        $("#text").on("keydown", function (e) {     //キーが押されたら動作
+            if(e.keyCode == 13 && e.shiftKey ){     //もしキーコードが13（enter）かつShiftキーが押されていたら
+                const today = new Date();           // インスタンス化された時点での日時情報を取得し、引数todayにセット
+                const msg = {                       // 変数msgを定義
+                        uname: $("#uname").val(),   // unameへID：unameに入力された情報を入れる。valはユーザーが入力した情報を扱うときの関数。
+                        text: $("#text").val(),     // textへID：textに入力された情報を入れる
+                        date: (today.getMonth() + 1 + "月" + today.getDate() + "日：" + today.getHours() + "時" + today.getMinutes() + "分"),
+                                                    // dateへ変数todayがもつ日時情報から指定した任意の情報をひっぱってくる。月の情報は0から始まるので+1をする
+                    }
+                    const newPostRef = push(dbRef); // 変数newPostRefに、変数dbRefからの情報を一回プッシュする（一回ごとなのでユニークキー生成と同義）
+                    console.log(newPostRef);
+                    set(newPostRef, msg);           // 変数newPostRefに変数msgの情報を持たせる（＝firebaseにmsgのデータを送る）
+                                                    // newPostRefではなくdbRefを指定した場合、pushのアクションが介在しないので、ユニークキーが生成されずにchatのところへデータを追加していく（上書きする）形となる。
+            }
+        });
+
+
+
+        // // 送信関数を利用した効率化ロジック
+        // // テキストエリアでキーボードを操作することで送信
+        // $("#text").on("keydown", function (e) {     //キーが押されたら動作
+        //     if(e.keyCode == 13 && e.shiftKey ){     //もしキーコードが13（enter）かつShiftキーが押されていたら
+        //         send();
+        //     }
+        // });
+
+        // // 送信ボタンをクリックすることで送信
+        // $("#send").on("click",send);
+
+
+        // // ここから送信関数 未実装
+        // function send(){
+        //         // window.location.reload();
+        //     let name = $("#uname").val();
+        //     if(name == "きつね"){                   // きつね
+        //         let no = 1; 
+        //         const msg ={
+        //             img_name : no,
+        //             uname: $("#uname").val(),
+        //             text: $("#text").val(),
+        //             date: (today.getMonth() + 1 + "月" + today.getDate() + "日：" + today.getHours() + "時" + today.getMinutes() + "分"),
+        //         }
+        //         const newPostRef = push(dbRef);
+        //         set(newPostRef,msg);
+
+        //     }else if(name == "くま"){               //くま
+        //         let no = 2;
+        //         const msg ={
+        //             img_name : no,
+        //             uname: $("#uname").val(),
+        //             text: $("#text").val(),
+        //             date: (today.getMonth() + 1 + "月" + today.getDate() + "日：" + today.getHours() + "時" + today.getMinutes() + "分"),
+        //         }
+        //         const newPostRef = push(dbRef);
+        //         set(newPostRef,msg);
+
+        //     }else if(name == "ねこ"){               //ねこ
+        //         let no = 3;
+        //         const msg ={
+        //             img_name : no,
+        //             uname: $("#uname").val(),
+        //             text: $("#text").val(),
+        //             date: (today.getMonth() + 1 + "月" + today.getDate() + "日：" + today.getHours() + "時" + today.getMinutes() + "分"),
+        //         }
+        //         const newPostRef = push(dbRef);
+        //         set(newPostRef,msg);
+        //     }
+        // }
+
+
+
+
+        onChildAdded(dbRef, function (data) {       //firebase上のchildへデータが入った場合に動作する
+            const msg = data.val();                 //変数msgにfirebase上のユーザーが入力したデータ（uname,text,date）を入れる
+            const key = data.key;                   //変数kayにfirebase上のkeyデータを入れる
+            const checkBox = `<input type="checkbox" id="${key}" class="item" name="delete">`;
+                                                    // 変数checkboxにinput要素ブロックを挿入
+                                                    // idにkeyを割り当て${}をここで使うと変数を文字列にできる
+            
+            // ここからhtmlへ挿入する文章を定義
+            let h = '<img src="img/1.png" width = "60">'; // hにpタグを追加
+                h += msg.uname + checkBox;          // hの最後にunameの情報を追加
+                h += '<br>';                        // 改行
+                h += msg.text;                      // hの最後にの情報を追加
+                h += '<br>';                        // 改行
+                h += msg.date;                      // メッセージを追加
+                h += '</p>'                         // pタグを追加
+
+            $("#output").append(`<div id="${'Box' + key}">${h}</div>`);
+        });
+
+
+
+        // 全削除ver.1
+        // $("#all_delete").on("click", function () {
+        //     $('.item').each(function () {
+        //         remove(ref(db, "chat/" + $(this)[0].id));
+        //     });
+        // });
+
+        // 全削除ver.2
+        $("#all_delete").on("click", function () {
+            remove(ref(db,"chat"));
+        });
+       
+
+        //選択したものを削除
+        $("#delete").on("click", function () {                      // ID：deleteをクリックしたら動作
+            $('input[name="delete"]:checked').each(function () {    // name = deleteのinput要素がチェックされているものに動作
+                remove(ref(db, "chat/" + $(this)[0].id));           // chat/ユニークキーの
+            });
+        });
+
+        onChildRemoved(dbRef, function (data) { // firebase上のchildが削除された時、firebaseにおけるそのユニークキーのデータに対して動作
+            const key = data.key;               // firebaseのユニークキー内のデータのkeyを変数keyに入力
+            $('#Box' + key).remove();           // 
+        });
+
+
+    </script>
+</body>
+</html>
+
+
+
+<!-- 要件定義
+＞マスト
+メッセージ領域を超えた処理：おｋ
+全削除機能実装：おｋ
+選択削除機能実装：おｋ
+
+＞ウォント
+スマートフォン風にデザインを変更：おｋ
+LINEのような色合いに変更：おｋ
+送信日付を表示：おｋ
+任意の相手とやりとりできる
+    名前をセレクトできるようにする
+        セレクトした値によってメッセージの吹き出しデザインや表示位置を変更する
+吹き出しの色合いを変更
+受信したらサウンドを鳴らす
+-->
+
+<!-- 開発記録
+ユニークキーを文字列に変換
+生成されるdivブロックのID名にする
+全削除はdb内のchatをremove関数で消去
+選択削除も同様のロジックで実装できないかな？
+
+-->
