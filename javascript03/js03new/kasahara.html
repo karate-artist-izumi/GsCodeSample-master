@@ -99,6 +99,55 @@
         });
 
 
+        onChildAdded(dbRef, function (data) {       //firebase上のchildへデータが入った場合に動作する
+            const msg = data.val();                 //変数msgにfirebase上のユーザーが入力したデータ（uname,text,date）を入れる
+            const key = data.key;                   //変数kayにfirebase上のkeyデータを入れる
+            const checkBox = `<input type="checkbox" id="${key}" class="item" name="delete">`;
+                                                    // 変数checkboxにinput要素ブロックを挿入
+                                                    // idにkeyを割り当て${}をここで使うと変数を文字列にできる
+            
+            // ここからhtmlへ挿入する文章を定義
+            let h = '<img src="img/1.png" width = "60">'; // hにpタグを追加
+                h += msg.uname + checkBox;          // hの最後にunameの情報を追加
+                h += '<br>';                        // 改行
+                h += msg.text;                      // hの最後にの情報を追加
+                h += '<br>';                        // 改行
+                h += msg.date;                      // メッセージを追加
+                h += '</p>'                         // pタグを追加
+
+            $("#output").append(`<div id="${'Box' + key}">${h}</div>`);
+        });
+
+
+
+        // 全削除ver.1
+        // $("#all_delete").on("click", function () {
+        //     $('.item').each(function () {
+        //         remove(ref(db, "chat/" + $(this)[0].id));
+        //     });
+        // });
+
+        // 全削除ver.2
+        $("#all_delete").on("click", function () {
+            remove(ref(db,"chat"));
+        });
+       
+
+        //選択したものを削除
+        $("#delete").on("click", function () {                      // ID：deleteをクリックしたら動作
+            $('input[name="delete"]:checked').each(function () {    // name = deleteのinput要素がチェックされているものに動作
+                remove(ref(db, "chat/" + $(this)[0].id));           // chat/ユニークキーの
+            });
+        });
+
+        onChildRemoved(dbRef, function (data) { // firebase上のchildが削除された時、firebaseにおけるそのユニークキーのデータに対して動作
+            const key = data.key;               // firebaseのユニークキー内のデータのkeyを変数keyに入力
+            $('#Box' + key).remove();           // 
+        });
+
+
+
+        
 
         // // 送信関数を利用した効率化ロジック
         // // テキストエリアでキーボードを操作することで送信
@@ -152,82 +201,6 @@
         // }
 
 
-
-
-        onChildAdded(dbRef, function (data) {       //firebase上のchildへデータが入った場合に動作する
-            const msg = data.val();                 //変数msgにfirebase上のユーザーが入力したデータ（uname,text,date）を入れる
-            const key = data.key;                   //変数kayにfirebase上のkeyデータを入れる
-            const checkBox = `<input type="checkbox" id="${key}" class="item" name="delete">`;
-                                                    // 変数checkboxにinput要素ブロックを挿入
-                                                    // idにkeyを割り当て${}をここで使うと変数を文字列にできる
-            
-            // ここからhtmlへ挿入する文章を定義
-            let h = '<img src="img/1.png" width = "60">'; // hにpタグを追加
-                h += msg.uname + checkBox;          // hの最後にunameの情報を追加
-                h += '<br>';                        // 改行
-                h += msg.text;                      // hの最後にの情報を追加
-                h += '<br>';                        // 改行
-                h += msg.date;                      // メッセージを追加
-                h += '</p>'                         // pタグを追加
-
-            $("#output").append(`<div id="${'Box' + key}">${h}</div>`);
-        });
-
-
-
-        // 全削除ver.1
-        // $("#all_delete").on("click", function () {
-        //     $('.item').each(function () {
-        //         remove(ref(db, "chat/" + $(this)[0].id));
-        //     });
-        // });
-
-        // 全削除ver.2
-        $("#all_delete").on("click", function () {
-            remove(ref(db,"chat"));
-        });
-       
-
-        //選択したものを削除
-        $("#delete").on("click", function () {                      // ID：deleteをクリックしたら動作
-            $('input[name="delete"]:checked').each(function () {    // name = deleteのinput要素がチェックされているものに動作
-                remove(ref(db, "chat/" + $(this)[0].id));           // chat/ユニークキーの
-            });
-        });
-
-        onChildRemoved(dbRef, function (data) { // firebase上のchildが削除された時、firebaseにおけるそのユニークキーのデータに対して動作
-            const key = data.key;               // firebaseのユニークキー内のデータのkeyを変数keyに入力
-            $('#Box' + key).remove();           // 
-        });
-
-
     </script>
 </body>
 </html>
-
-
-
-<!-- 要件定義
-＞マスト
-メッセージ領域を超えた処理：おｋ
-全削除機能実装：おｋ
-選択削除機能実装：おｋ
-
-＞ウォント
-スマートフォン風にデザインを変更：おｋ
-LINEのような色合いに変更：おｋ
-送信日付を表示：おｋ
-任意の相手とやりとりできる
-    名前をセレクトできるようにする
-        セレクトした値によってメッセージの吹き出しデザインや表示位置を変更する
-吹き出しの色合いを変更
-受信したらサウンドを鳴らす
--->
-
-<!-- 開発記録
-ユニークキーを文字列に変換
-生成されるdivブロックのID名にする
-全削除はdb内のchatをremove関数で消去
-選択削除も同様のロジックで実装できないかな？
-
--->
