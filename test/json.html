@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const ob = {
+            name:"izumi",
+            email:"test@test.jp",
+            tel:"080000000"
+        }
+        console.log(ob);
+
+        const json_ob = JSON.stringify(ob);
+        console.log(json_ob);
+
+        localStorage.setItem("key1",json_ob);
+        localStorage.setItem("key2",ob);  //エラー
+
+        const val = localStorage.getItem("key1");
+        console.log(val);
+
+        const arry_val = JSON.parse(val);
+        console.log(arry_val);
+
+    </script>
+</body>
+</html>
