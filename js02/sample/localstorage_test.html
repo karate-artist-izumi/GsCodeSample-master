@@ -8,20 +8,21 @@
 </head>
 
 <body>
-<!-- <div id="view"></div> -->
-
 
     <main>
         <div id="box1">
 
-            <h4>key</h4>
-            <input type="text" id="key">
+            <input type="text" id="key" hidden>
+
+            <h4>title</h4>
+            <input type="text" id="title">
             
             <h4>memo</h4>
             <textarea name="" id="memo" cols="30" rows="10"></textarea>
             
             <ul>
                 <li id="save"><button>SAVE</button></li>
+                <li id="che"><button>CHENGE</button></li>
                 <li id="clear"><button>ALL CLEAR</button></li>
             </ul>
         </div>
@@ -30,7 +31,7 @@
             
             <h4>リスト</h4>
             <tr>
-                <td>key</td>
+                <td>title</td>
                 <td>memo</td>
                 <td>変更</td>
                 <td>削除</td>
@@ -46,12 +47,29 @@
 
 //save
 $("#save").on("click",function(){
-    const key = $("#key").val();
-    const memo = $("#memo").val();
-    localStorage.setItem(key,memo);
 
-    const h ='<tr><td>'+key+'</td><td>'+memo+'</td><td>'+'<button id="change">変更</button>'+'</td><td>'+'<button id="del">削除</button>'+'</td></tr>'
-    $("#list").prepend( h );
+    const key = Math.random();
+    const title = $("#title").val();
+    const memo = $("#memo").val();
+
+    const ob = {title,memo}
+    const json_ob = JSON.stringify(ob);
+
+    localStorage.setItem(key,json_ob);
+
+    location.reload()
+});
+
+//chenge
+$("#che").on("click",function(){
+    const key = $("#key").val();
+    const title = $("#title").val();
+    const memo = $("#memo").val();
+
+    const ob = {title,memo}
+    const json_ob = JSON.stringify(ob);
+
+    localStorage.setItem(key,json_ob);
 
     location.reload()
 });
@@ -62,18 +80,26 @@ $("#clear").on("click",function(){
     $("#list").empty();
 });
 
+
 //読み込み
 for(let i=0; i<localStorage.length; i++){
-    const key = localStorage.key(i);
-    const memo = localStorage.getItem(key);
 
-    const h = '<tr><td>'+key+'</td><td>'+memo+'</td><td><button id="change">変更</button></td><td><button id="del">削除</button></td></tr>'
+    const key = localStorage.key(i);
+    const val = localStorage.getItem(key);
+
+    // console.log(val);
+    const arry_val = JSON.parse(val);
+    // console.log(arry_val);
+    // console.log(arry_val.title);
+
+    const h = '<tr><td>'+arry_val.title+'</td><td>'+arry_val.memo+'</td><td><button id="change">変更</button></td><td><button id="del">削除</button></td></tr>'
     $("#list").prepend( h );
 
     //changeボタン
     $("#change").on("click",function(){
         $("#key").val( key );
-        $("#memo").val( memo );
+        $("#title").val( arry_val.title );
+        $("#memo").val( arry_val.memo );
     });
 
     //delボタン
