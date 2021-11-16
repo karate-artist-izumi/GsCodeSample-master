@@ -28,6 +28,28 @@
         const arry_val = JSON.parse(val);
         console.log(arry_val);
 
+
+
+        const obs = {
+            obs1:{name:"ogasawara",time:"lab10"},
+            obs2:{name:"TD",time:"lab2"},
+            obs3:{name:"kanomi",time:"sutahhu"}
+        }
+        console.log(obs);
+
+        const json_obs = JSON.stringify(obs);
+        console.log(json_obs);
+
+        localStorage.setItem("key3",json_obs);
+        
+        const val2 = localStorage.getItem("key3");
+        console.log(val2);
+
+        const arry_val2 = JSON.parse(val2);
+        console.log(arry_val2);
+
+        console.log(arry_val2.obs1.time);
+        console.log(arry_val2.obs3.name);
     </script>
 </body>
 </html>

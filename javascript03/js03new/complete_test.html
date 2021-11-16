@@ -18,6 +18,7 @@
         <div>
             <textarea id="text" cols="30" rows="10"></textarea>
             <button id="send">送信</button>
+            <button id="del">削除</button>
         </div>
         <div id="output" style="overflow: auto;height: 300px;"></div>
     </div>
@@ -66,29 +67,67 @@ $("#text").on("keydown",function(e){
 });
 
 //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
-onChildAdded(dbRef, function(data){   
-    const msg  = data.val();    //オブジェクトデータを取得し、変数msgに代入
-    const key  = data.key;      //データのユニークキー（削除や更新に使用可能）
-    //表示用テキスト・HTMLを作成
-    let h = '<p>';
-        h += msg.uname;
-        h += '<br>';
-        h += msg.text;
-        h += '<br>';
-        h += '<div class="del" id="'+key+'"><button>削除</button></div>';
-        h += '</p>';
-        $("#output").append(h); //#outputの最後に追加
-        
+// onChildAdded(dbRef, function(data){   
+//     const msg  = data.val();    //オブジェクトデータを取得し、変数msgに代入
+//     const key  = data.key;      //データのユニークキー（削除や更新に使用可能）
+//     //表示用テキスト・HTMLを作成
+//     let h = '<p>';
+//         h += msg.uname;
+//         h += '<br>';
+//         h += msg.text;
+//         h += '<br>';
+//         h += '<div class="del" id="'+key+'"><button>削除</button></div>';
+//         h += '</p>';
+//         $("#output").append(h); //#outputの最後に追加
 
-
-        $(".del").on("click", function () {                  
-            // remove(ref(db, "chat/"+key)); 
-            firebase.database().ref('chat/' + key).remove();
-        });
-
+//         $(".del").on("click", function () {                  
+//             // remove(ref(db, "chat/"+key)); 
+//             firebase.database().ref('chat/' + key).remove();
+//         });
 
         
+//     });
+
+
+//データの表示
+//個別削除と全削除
+onChildAdded(dbRef,function(data){
+        const msg = data.val();
+        const key = data.key; //ユニークキー
+        let h= `<div class='li' id='${key}'>`;  ///個別削除のために追加
+            h += '<p>';
+            h += msg.time;
+            h+='<br>';
+            h += msg.uname;
+            h+='<br>';
+            h += msg.text;
+            h +='</p>';
+            h += '</div>'                     ////個別削除のために追加
+            $("#output").append(h);
+        })
+        onChildRemoved(dbRef, function(snap){ //dbのchatフォルダ内でデータが削除されたら
+    const msg = snap.val(); //削除された内容を取得
+    const key = snap.key; //削除された内容のキーを取得
+});
+
+// 個別削除↓
+$(document).on('click', '.li',function(){ //liクラスをクリックしたら
+    const getID = $(this).attr('id'); //liクラスにあるid(ユニークキー)を取得し
+    $('#del').toggleClass(getID); //押すとdeletクラスに変数getID(ユニークキー)クラスを付与し、再度押すと外れる
+    $(this).toggleClass('isActive'); //押すとliクラスにisActiveクラスを付与し、再度押すと外れる
+    const delID = $('#del').attr('class'); //id=deletのクラスを取得
+    $(document).on('click', '#del', function(){ //id=deletの要素をクリックすると
+        const delRef = ref(db, "chat/"+delID); //dbのchat/ユニークキー/のフォルダを参照し
+        remove(delRef); //ユニークキー以下を削除
+        $(`.isActive#${getID}`).html(''); //isActiveクラスかつ#変数getID(ユニークキー)のHTMLを削除
     });
+});
+
+//全削除↓
+$('.all-del').on('click', function(){ //all-deletクラスをクリックしたら
+    remove(dbRef);//dbのchatディレクトリを参照して全削除する
+    $('#output').html('');//#outputのHTMLも削除する
+});
 
 
 
