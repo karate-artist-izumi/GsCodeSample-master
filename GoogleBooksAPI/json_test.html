@@ -60,15 +60,12 @@ $("#save").on("click",function(){
 
     let vew2 = "";
     for(let i = 0; i<data2.items.length; i++){
-
       vew2 += '<ul>';
       vew2 += '<li>'+data2.items[i].volumeInfo.title+'</li>';
       vew2 += '</ul>';
-
       $("#content1").html(vew2);
-
     }
-
+    
   });
 
 });
