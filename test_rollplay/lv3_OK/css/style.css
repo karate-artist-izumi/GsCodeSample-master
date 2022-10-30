@@ -1,0 +1,38 @@
+body {
+    background-color: white;
+}
+h1 {
+    color: blue;
+    font-size: 36px;
+    font-weight: bold;
+    margin: 24px 6px 24px;
+}
+.btn-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+#img-wrapper {
+    width: 200px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+#img-wrapper img {
+    width: 100%;
+}
+
+#chara-select-btn{
+    height: 36px;
+    font-weight: bold;
+}
+
+#move-btn {
+    background-color: brown;
+    width: 120px;
+    height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    margin: 36px auto 0;
+}
