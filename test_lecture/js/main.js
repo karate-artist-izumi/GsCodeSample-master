@@ -1,6 +1,5 @@
 $("#btn").on("click",function(){
     $("#text").html("ok");
-    $("#text").fadeOut(2000);
 });
 
 
@@ -15,6 +14,4 @@ if(r < 2){
 }else{
     console.log("kyo")
 }
-
-
 
