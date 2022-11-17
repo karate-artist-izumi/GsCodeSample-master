@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Firebase:v9:Chatアプリ</title>
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+<div>
+    <div> 名前：<input type="text" id="uname"> </div>
+    <div>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send">送信</button>
+    </div>
+    <div id="output" style="overflow:auto; height:300px; width: 500px; border: solid 1px;"></div>
+</div>
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved } 
+    from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";  
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBcrqx6l-r2VPAy5nhEoYJCFTr1OuhpTOo",
+            authDomain: "lab14-9cf0d.firebaseapp.com",
+            projectId: "lab14-9cf0d",
+            storageBucket: "lab14-9cf0d.appspot.com",
+            messagingSenderId: "762574558998",
+            appId: "1:762574558998:web:de7afc5390746fe777e237"
+        };
+    
+        // Initialize Firebaseに接続
+        const app = initializeApp(firebaseConfig);
+
+        //送信処理
+        const db = getDatabase(app); //RealtimeDBに接続
+        const dbRef = ref(db,"chat");//chatのDBに接続
+
+        $("#send").on("click",function(){
+            const msg   = {
+                uname : $("#uname").val(),
+                text  : $("#text").val()
+            }
+            console.log(msg)
+            const post = push(dbRef);
+            set(post,msg);
+        });
+
+        //受信処理
+        onChildAdded(dbRef, function(data){
+            const msg = data.val();
+            let h = `<p>
+                        ${msg.uname}
+                    <br>
+                        ${msg.text}
+                    </p>
+                    `;
+            $("#output").append(h);
+
+            const output = $("#output");
+        output.scrollTop(output[0].scrollHeight - output.height());
+        
+        });
+
+
+
+    </script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

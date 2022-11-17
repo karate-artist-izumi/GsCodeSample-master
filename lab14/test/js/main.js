@@ -1,6 +1,10 @@
 $("#btn").on("click",function(){
     $("#text").html("ok");
     $("#text").fadeOut(2000);
+      // クリックされたら class="bb"を表示する
+  // そのためには注意！必ず最初に「非表示」にする必要があります🤗
+  // cssの場合はdisplay:none;をつける
+  $(".modal").fadeToggle(1000);
 });
 
 

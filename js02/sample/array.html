@@ -24,13 +24,13 @@
 
 let y = "";
 for(let i=1950; i<=2025; i++){
-        y += '<option>'+i+'</option>';
+        y += '<option value=" '+i+' ">' +i+ '</option>';
 }
 $("#year").html( y );
 
 let m ="";
 for(let i=1; i<=12; i++){
-        m += '<option>'+i+'</option>'
+        m += '<option value=" '+i+' ">' +i+ '</option>';
 }
 $("#month").html( m );
 

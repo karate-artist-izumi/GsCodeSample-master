@@ -7,9 +7,10 @@
 <body>
 <h1>function02: 関数の引数＆戻り値</h1>
 
+<button id = "btn">ボタン</button>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
 
     //関数定義: addition(a=第1引数, b=第2引数){...}
@@ -22,6 +23,29 @@
     const sum = addition(10, 20); //const sum変数は関数からの「return」を受け取る
     console.log( sum );
 
+
+
+    function tall(a,b){
+        const all = a + b;
+        return all; 
+    }
+    const all = tall(5,6)
+    console.log(all);
+
+
+    $("#btn").on("click",aa);
+    function aa(){
+        console.log("クリック");
+    }
+
+    let h = `
+            <p>
+            　　　
+            ${msg.uname}
+            　　　　
+            ${msg.text}
+            </p>
+            `;
 </script>
 </body>
 </html>
