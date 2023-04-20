@@ -1,0 +1,563 @@
+/* サイト自体の中心設定 */
+.all {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 1200px;
+}
+
+/* ローディング画面 */
+#Loading {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s;
+  background-color: black;
+/* ローディング画面とコンテンツを position プロパティーで重ねる */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+/* ローディング画面表示画像 */
+.Yoki {
+  width: 45vw;
+  height: 100vh;
+  margin-left: 600px;
+  margin-right: auto;
+}
+/* ローディングアニメーション */
+@keyframes sk-scaleout {
+  0% {
+    transform: scale(0);
+  } 100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+/* ローディング画面を消す */
+.Loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+
+body{
+  background: linear-gradient(-90deg, #9a9ab3, #dfe1e4);
+}
+
+/* 共通設定 */
+.p60 {
+  margin-bottom: 60px;
+}
+
+.p30 {
+  margin-bottom: 30px;
+}
+
+.p10{
+  margin-bottom: 10px;
+}
+
+.mokuzi {
+  font-size: 30px;
+  color: firebrick;
+  font-family: fantasy;
+}
+
+.honbun {
+  font-size: 32px;
+  font-family: serif;
+  font-weight: bold;
+}
+
+/* head内aリンクの色指定 */
+.head a {
+  color: white;
+}
+
+/* aリンクの下線消し */
+a {
+  text-decoration: none;
+}
+
+
+/* 各々の設定 */
+.head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.head img {
+  width: 200px;
+  height: 200px;
+}
+
+.headmigi {
+  display: flex;
+  font-size: 24px;
+  color: white;
+  background-color: black;
+  margin: 0 20px 0;
+}
+
+.head1 {
+  margin-left: 20px;
+}
+
+
+.top {
+  background: url(../img/tate03.jpg) no-repeat center;
+  width: 1200px;
+  height: 300px;
+  background-size: cover;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.topue {
+  font-size: 100px;
+  font-family: serif;
+  font-weight: 700;
+  padding-top: 140px;
+  color: aliceblue;
+}
+
+.topsita {
+  font-size: 60px;
+  font-family: serif;
+  font-weight: 400;
+  padding-top: 90px;
+  color: aliceblue;
+}
+
+.vsize video{
+  width: 1100px;
+}
+
+
+/* ボックススライダー */
+
+.mainnaka{
+  width: 590px;
+  height: 590px;
+}
+
+.bx-wrapper {
+  width: 590px;
+  height: 590px;
+}
+
+li img{
+  width: 590px;
+  height: 590px;
+}
+
+
+
+.mainue {
+  display: flex;
+}
+
+.mainue0 {
+  margin: auto;
+}
+
+.mainue01 {
+  font-size: 40px;
+  font-family: serif;
+  font-weight: 700;
+}
+
+.mainue03 {
+  font-size: 90px;
+  font-family: serif;
+  font-weight: 700;
+}
+
+/* セレクトボックス内のフォント調整 */
+select {
+  font-size: 30px;
+  font-family: serif;
+  margin: 10px;
+  width: 480px;
+}
+
+input[type="submit"] {
+  font-size: 38px;
+    width: 250px;
+    height: 80px;
+  font-family: serif;
+  display: inline-block;
+    margin: 0 0 1em;
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.contact1 {
+  display: flex;
+  justify-content: center;
+}
+
+.contact11 {
+  border: black solid 1px;
+  width: 400px;
+  height: 60px;
+}
+
+.contact11 p{
+  margin: 15px;
+}
+
+.contact12 {
+  border: black solid 1px;
+  width: 500px;
+  height: 60px;
+}
+
+.contact13 {
+  border: black solid 1px;
+  width: 500px;
+  height: 200px;
+  flex-direction: column;
+  display: flex;
+}
+
+.contact14 {
+  border: black solid 1px;
+  width: 400px;
+  height: 200px;
+}
+
+.contact14 p{
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: 474px;
+  height: 40px;
+  margin: 7px;
+}
+
+input[type="email"] {
+  width: 474px;
+  height: 40px;
+  margin: 7px;
+}
+
+label {
+  margin-top: 10px;
+  text-align: left;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+textarea {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.news{
+  display: flex;
+}
+
+.news1 img{
+  width: 400px;
+  height: 320px;
+}
+
+
+
+/* マウスオーバーリアクション */
+/* 親タグに下記css */
+/* display: inline-block; */
+/* cursor: pointer; */
+/* transition: all 0.3s ease 0s; */
+/* その後下記を追加 */
+/* .親タグ:hover { */
+/* opacity: 0.6; */
+/* } */
+.news1 {
+  margin: 10px;
+  background-color: oldlace;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  height: 550px;
+}
+
+.news1:hover {
+  opacity: 0.6;
+}
+
+.news11 {
+  margin: 30px auto;
+}
+
+/* マウスオーバーリアクション */
+.hover1 {
+  display: inline-block;
+  padding: 0.6em 2em;
+  margin: 0 0 1em;
+  background-color: black;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  width: 140px;
+  height: 42px;
+  font-size: 40px;
+}
+.hover1:hover {
+  opacity: 0.6;
+}
+
+.hover2 {
+  display: inline-block;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.hover2:hover {
+  opacity: 0.6;
+}
+
+
+/* jqueryアニメーション */
+
+.blue {
+  display: none;
+  float: left;
+  height: 550px;
+  width: 400px;
+  background-color: oldlace;
+  margin: 10px;
+}
+
+button {
+  font-size: 40px;
+  width: 240px;
+  height: 80px;
+  background-color: black;
+  color: white;
+}
+
+.clearfix {
+  display: flex;
+}
+
+.blue img{
+  width: 400px;
+  height: 320px;
+}
+
+.jqhonbun{
+  margin-top: 25px;
+  font-size: 32px;
+  font-family: serif;
+}
+
+
+
+.place1{
+  display: flex;
+  justify-content: center;
+  background-color: oldlace;
+}
+
+.place2{
+  width: 500px;
+  height: 100px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.place3{
+  width: 500px;
+  height: 100px;
+  text-align: initial;
+  margin-top: 30px;
+}
+
+.contact11 p {
+  text-align: right;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.contact14 p {
+  text-align: right;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+
+
+
+footer{
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  padding: 30px 0;
+}
+
+
+
+/* 画像流し */
+.gallery-p {
+	overflow: hidden;
+	display: flex;
+}
+
+.gallery {
+	display: flex;
+}
+
+.gallery img {
+	height: 400px; /* スライダーの高さ */
+	width: auto;
+}
+
+@keyframes gallery {
+	0% {
+		transform: translateX(100%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes gallery2 {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-200%);
+	}
+}
+
+.gallery:first-child {
+	animation: gallery 60s -30s linear infinite; /* スライダーの速度（２番目の数字は１番目の数字の半分にします） */
+}
+
+.gallery:last-child {
+	animation: gallery2 60s linear infinite; /* 60sの部分は上の数字と同じ */
+}
+
+
+/* 動画背景 */
+html,body{
+  margin:0;
+  height:120%;
+
+}
+.header{
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  height:50vw;
+  min-height:400px;
+  max-height:550px;
+  min-width:300px;
+  color:#eee;
+}
+.header:after{
+  content:"";
+  width:100%;
+  height:40%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  z-index:-1;
+ background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(27,32,48,1) 100%);
+}
+.header:before{
+  content:"";
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
+  background:#1B2030 url("../img/tophaikei.jpg") top center no-repeat;
+  background-size:cover;
+  background-attachment:fixed;
+  animation: grow 60s  linear 10ms infinite;
+  transition:all 0.2s ease-in-out;
+  z-index:-2
+}
+
+
+@keyframes grow{
+  0% { transform:scale(1)}
+  50% { transform:scale(1.2)}
+}
+.content{  
+  padding:5% 10%;
+  text-align:justify
+}
+
+
+/* マーカー */
+mark {
+  --color1: darkkhaki;
+    --color2: gray;
+    --bg-height: 40%;
+    all: unset;
+    background-image: linear-gradient(var(--color1), var(--color2));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 var(--bg-height);
+    animation: highlight 800ms 1 ease-out;
+    animation-fill-mode: forwards;
+}
+
+
+@-webkit-keyframes highlight {
+  to {
+    background-size: 100% var(--bg-height);
+  }
+}
+
+
+@keyframes highlight {
+  to {
+    background-size: 100% var(--bg-height);
+  }
+}
+
+/* DEMO RELATED CODE*/
+
+main {
+  width: min(50ch, 80%);
+  margin: 0 auto;
+  padding: 100px 0;
+}
+
+span {
+  white-space: nowrap;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  font-size: 0.8rem;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center
+}
+
+span img {
+    margin: 0 0 0 4px;
+  }
+
+
