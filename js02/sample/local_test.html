@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>メモ帳</title>
+  </head>
+  <body>
+    <h1>メモ帳</h1>
+    <form>
+      <textarea id="memo" rows="5" cols="50"></textarea>
+      <br>
+      <button id="add-btn" type="submit">追加</button>
+    </form>
+    <hr>
+    <ul id="memo-list"></ul>
+
+    <script>
+      const memoKey = 'memos';
+      const memoForm = document.querySelector('form');
+      const memoList = document.querySelector('#memo-list');
+
+      // ローカルストレージからメモ一覧を取得
+      let memos = JSON.parse(localStorage.getItem(memoKey)) || [];
+
+      // メモ一覧を表示
+      function displayMemos() {
+        memoList.innerHTML = '';
+        for (let i = 0; i < memos.length; i++) {
+          const memo = memos[i];
+          const li = document.createElement('li');
+          const span = document.createElement('span');
+          span.textContent = memo;
+          li.appendChild(span);
+
+          // 編集ボタン
+          const editBtn = document.createElement('button');
+          editBtn.textContent = '編集';
+          editBtn.addEventListener('click', () => {
+            const newMemo = prompt('メモを編集してください', memo);
+            if (newMemo) {
+              memos[i] = newMemo;
+              localStorage.setItem(memoKey, JSON.stringify(memos));
+              displayMemos();
+            }
+          });
+          li.appendChild(editBtn);
+
+          // 削除ボタン
+          const deleteBtn = document.createElement('button');
+          deleteBtn.textContent = '削除';
+          deleteBtn.addEventListener('click', () => {
+            memos.splice(i, 1);
+            localStorage.setItem(memoKey, JSON.stringify(memos));
+            displayMemos();
+          });
+          li.appendChild(deleteBtn);
+
+          memoList.appendChild(li);
+        }
+      }
+      displayMemos();
+
+      // メモを追加
+      memoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const memo = document.querySelector('#memo').value;
+        if (memo) {
+          memos.push(memo);
+          localStorage.setItem(memoKey, JSON.stringify(memos));
+          displayMemos();
+          document.querySelector('#memo').value = '';
+        }
+      });
+    </script>
+  </body>
+</html>

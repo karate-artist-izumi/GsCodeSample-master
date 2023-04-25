@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Storage Memo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Local Storage Memo</h1>
+            <div class="columns">
+                <div class="column">
+                    <form id="memo-form">
+                        <div class="field">
+                            <label class="label">Title</label>
+                            <div class="control">
+                                <input class="input" type="text" id="memo-title">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Content</label>
+                            <div class="control">
+                                <textarea class="textarea" id="memo-content"></textarea>
+                            </div>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-primary">Add Memo</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="column">
+                    <div id="memo-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const memoForm = document.getElementById('memo-form');
+        const memoTitle = document.getElementById('memo-title');
+        const memoContent = document.getElementById('memo-content');
+        const memoList = document.getElementById('memo-list');
+
+        let memos = JSON.parse(localStorage.getItem('memos')) || [];
+
+        const renderMemos = () => {
+            memoList.innerHTML = '';
+            memos.forEach((memo, index) => {
+                const memoElement = `
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">${memo.title}</p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">${memo.content}</div>
+                        </div>
+                        <footer class="card-footer">
+                            <a class="card-footer-item" onclick="editMemo(${index})">Edit</a>
+                            <a class="card-footer-item" onclick="deleteMemo(${index})">Delete</a>
+                        </footer>
+                    </div>
+                `;
+                memoList.innerHTML += memoElement;
+            });
+        }
+
+        const addMemo = (event) => {
+            event.preventDefault();
+            const title = memoTitle.value;
+            const content = memoContent.value;
+            if (title === '' || content === '') {
+                return;
+            }
+            const memo = { title, content };
+            memos.push(memo);
+            localStorage.setItem('memos', JSON.stringify(memos));
+            memoTitle.value = '';
+            memoContent.value = '';
+            renderMemos();
+        }
+
+        const editMemo = (index) => {
+            const memo = memos[index];
+            memoTitle.value = memo.title;
+            memoContent.value = memo.content;
+            memos.splice(index, 1);
+            localStorage.setItem('memos', JSON.stringify(memos));
+            renderMemos();
+        }
+
+        const deleteMemo = (index) => {
+            memos.splice(index, 1);
+            localStorage.setItem('memos', JSON.stringify(memos));
+            renderMemos();
+        }
+
+        memoForm.addEventListener('submit', addMemo);
+        renderMemos();
+    </script>
+</body>
+</html>
