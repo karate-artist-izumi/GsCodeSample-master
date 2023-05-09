@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="./css/chat_style.css">
+<head>
+	<title>Chuck Norris Jokes</title>
+</head>
+<body>
+	<h1>Chuck Norris Jokes</h1>
+	<p id="joke"></p>
+
+	<button id="get-joke">Get Joke</button>
+
+	<script>
+		const jokeButton = document.getElementById("get-joke");
+		const jokeText = document.getElementById("joke");
+
+		jokeButton.addEventListener("click", () => {
+			// APIにリクエストを送信
+			fetch("https://api.chucknorris.io/jokes/random")
+				.then(response => response.json()) // レスポンスをJSONに変換
+				.then(data => {
+					// レスポンスからジョークを取得して表示
+					jokeText.textContent = data.value;
+				})
+				.catch(error => {
+					console.error(error); // エラーをコンソールに表示
+				});
+		});
+	</script>
+</body>
+</html>

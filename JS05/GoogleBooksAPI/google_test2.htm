@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>Google Books API から書籍情報を表示するサンプルコード</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    tr,td{
+      border:1px solid #555;
+    }
+  </style>
+</head>
+<body>
+
+<table id="book_list">ここに受信データを表示</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+//キーワードをセット
+const data = {
+    q:"PHP"
+};
+//通信処理    
+axios.get('https://www.googleapis.com/books/v1/volumes',{
+   params:data 
+}).then(function (res) {
+    //データを受信
+    const val = res.data; //"変数.data;"オブジェクト・データを取得！！
+    console.log(val);     //データ構成を必ずチェック！！
+
+    //レコードの数だけ繰り返す
+    let html="";
+    
+
+
+
+    
+    //表示したい場所のid名にデータを追加する
+    $("#book_list").html(html);
+
+});
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/sample.css">
+<title>GoogleBook検索</title>
+</head>
+<body>
+
+  <header>
+    <h1>GoogleBooks検索</h1>
+    <p>
+      <input type="text" id="keyword" value="HTML">
+      <button id="readbook">データ読み込み</button>
+    </p>
+  </header>
+
+  <main>
+    <p id="content">ここに表示されます</p>
+  </main>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+//-----------------------------------
+// AXIOSライブラリを使ってAjax通信
+//＊演習：題名・出版社・リンクを表示する！！
+//-----------------------------------
+$("#readbook").on("click",function(){
+    //送信データをセット
+    const data = {
+      q : "HTML"
+    };
+    //通信開始！
+    axios.get("https://www.googleapis.com/books/v1/volumes",{
+            params:data
+    })
+    .then(function (res) {
+        const val = res.data; //dataで受けとる
+        console.log(val);
+        
+        //レコードの数だけ繰り返す
+        let html="";
+        for(let i=0; i<val.items.length; i++){
+              const elm = val.items[i].volumeInfo;
+              console.log(elm.authors);
+              console.log(elm.description);
+              html += '<tr>'; 
+              html += '<td>書籍名：' + elm.title + '</td>';
+              html += '<td>著者：' + elm.authors ?? "" + '</td>';      // ⁇ はobjectプロパティがNull||undefinedは空文字をセット
+              html += '<td>解説：' + elm.description ?? "" + '</td>';  // ⁇ はobjectプロパティがNull||undefinedは空文字をセット
+              html += '</tr>';
+        };
+        //表示したい場所のid名にデータを追加する
+        $("#content").html(html);
+    });
+});
+//----------------------------------
+</script>
+</body>
+
+</html>
