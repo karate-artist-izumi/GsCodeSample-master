@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button class="btn">追加</button>
+    <button class="open">コンソール</button>
+    <textarea name="" id="text" cols="30" rows="10"></textarea>
+    <div class="rel">表示</div>
+    <div class="card">カード</div>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script> -->
+    <script src="./js/env2.js"></script>
+
+    <script>
+
+    let ary = [];
+
+    let n = 0;
+
+    $(".btn").on('click',function(){
+        n = n + 1;
+        if(n<5){
+            $(".rel").html("追加");
+            apush = $("#text").val();
+            ary.push(apush);
+            console.log(ary);
+            let h = `<div class="del"><p class="atext">${apush}</p><img src="./del.png" alt=""><button>削除</button></div>`; 
+            $(".card").append(h);
+        }else{
+            $(".rel").html("追加できません");
+            n = n - 1;
+        }
+    });
+
+    $("body").on('click','.del',function(){
+
+        $(this).remove();
+        n = n - 1; 
+    });
+
+    // $(".open").on('click',function(){
+    //     console.log(ary);
+    //     console.log(n);
+    // });
+    var script = document.createElement('script'); //変数名は適当なものにでも
+    script.src = "./js/env.js"; //ファイルパス
+    document.body.appendChild(script);
+
+
+    </script>
+</body>
+</html>
